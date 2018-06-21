@@ -1,0 +1,15 @@
+{
+  "name": "sw-proxy",
+  "version": "1.0.0",
+  "description": "Development proxy server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ws -p 8080 --spa index.html"
+  },
+  "author": "Danny Moerkerke <danny@dannymoerkerke.nl>",
+  "license": "ISC",
+  "devDependencies": {
+    "local-web-server": "^2.5.2"
+  }
+}

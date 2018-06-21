@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>sw-proxy</title>
+    </head>
+    <body>
+
+    </body>
+
+    <script src="sw-proxy.js"></script>
+
+    <script>
+        if('serviceWorker' in navigator) {
+            navigator.serviceWorker
+            .register('./sw-proxy.js');
+        }
+
+        setTimeout(() => {
+            fetch('http://localapi.dannymoerkerke.com/v1/blog');
+        }, 1000);
+
+        setTimeout(() => {
+            fetch('http://localapi.dannymoerkerke.com/v1/pdf');
+        }, 2000);
+    </script>
+</html>

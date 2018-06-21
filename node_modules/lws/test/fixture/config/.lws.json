@@ -1,0 +1,6 @@
+{
+  "port": 9000,
+  "rewrite": [
+    { "from": "a", "to": "root-folder" }
+  ]
+}
