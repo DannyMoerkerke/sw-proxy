@@ -1,5 +1,0 @@
-{
-  "rewrite": [
-    { "from": "a", "to": "project-folder" }
-  ]
-}
