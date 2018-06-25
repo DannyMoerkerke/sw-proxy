@@ -1,50 +1,60 @@
-// import responses from './sw-proxy-responses.js';
+let responses = [];
 
-const responses = [
-    {
-        url: 'http://localapi.dannymoerkerke.com/v1/blog',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: {
-            message: 'response found!'
-        }
-    },
-    {
-        url: 'http://localapi.dannymoerkerke.com/v1/pdf',
-        headers: {
-            'Content-Type': 'application/pdf'
-        },
-        file: 'tickets.pdf'
-    }
-];
-
-self.addEventListener('install', e => {
+const handleInstall = () => {
     console.log('[sw-proxy] service worker installed');
     self.skipWaiting()
-});
+};
 
-self.addEventListener('activate', e => {
-    console.log('[sw-proxy] service worker activated');
+const handleActivate = () => {
+    console.log('[sw-proxy] service worker activated', responses.length);
+    self.clients.claim();
 
-    return self.clients.claim();
-});
+    if(!responses.length) {
+        self.clients.matchAll()
+        .then(clients => clients.forEach(client => client.postMessage('request for responses')))
+    }
+};
 
-self.addEventListener('fetch', e => {
+const handleMessage = e => {
+    if(e.data.responses) {
+        responses = e.data.responses;
+    }
+};
+
+const handleFetch = e => {
     const {method, url} = e.request;
     const response = getResponseFor(url, method);
 
     if(response) {
-        console.log(`[sw-proxy] proxying request ${url}`);
+        console.log(`[sw-proxy] proxying request ${method}: ${url}`);
 
-        const {headers} = response;
-        const proxyResponse = response.body ? Promise.resolve(new Response(JSON.stringify(response.body), {headers})) :
-                              response.file ? fetch(`${self.origin}/${response.file}`) : fetch(e.request);
+        let {headers, status, statusText, delay} = response;
 
-        e.respondWith(proxyResponse);
+
+        const init = {headers, status, statusText};
+        const proxyResponse = response.file ? fetch(`${self.origin}/${response.file}`) :
+            Promise.resolve(new Response(JSON.stringify(response.body), init));
+
+        e.waitUntil(
+            e.respondWith(delay ? delayResponse(delay, proxyResponse) : proxyResponse)
+        );
     }
-});
+};
+
+const delayResponse = (time, response) => {
+    return new Promise((resolve, reject) => {
+        return setTimeout(() => {
+            return resolve(response);
+        }, time);
+    })
+}
 
 const getResponseFor = (url, method) => {
     return responses.find(response => response.url === url && (response.method === method || response.method === undefined && method === 'GET'));
 };
+
+self.addEventListener('install', handleInstall);
+self.addEventListener('activate', handleActivate);
+self.addEventListener('message', handleMessage);
+self.addEventListener('fetch', handleFetch);
+

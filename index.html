@@ -8,20 +8,12 @@
 
     </body>
 
-    <script src="sw-proxy.js"></script>
-
+    <script type="module" src="index.js"></script>
     <script>
-        if('serviceWorker' in navigator) {
-            navigator.serviceWorker
-            .register('./sw-proxy.js');
-        }
-
-        setTimeout(() => {
-            fetch('http://localapi.dannymoerkerke.com/v1/blog');
-        }, 1000);
-
-        setTimeout(() => {
-            fetch('http://localapi.dannymoerkerke.com/v1/pdf');
-        }, 2000);
+        fetch('http://localapi.dannymoerkerke.com/v1/blog');
+        fetch('http://localapi.dannymoerkerke.com/v1/text');
+        fetch('http://localapi.dannymoerkerke.com/v1/pdf');
+        fetch('http://localapi.dannymoerkerke.com/v1/pdf', {method: 'POST'});
+        fetch('http://localapi.dannymoerkerke.com/v1/notfound');
     </script>
 </html>
