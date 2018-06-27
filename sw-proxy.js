@@ -33,6 +33,12 @@ const handleMessage = e => {
     }
 };
 
+const delayResponse = (time, response) => new Promise(resolve => setTimeout(() => resolve(response), time));
+
+const getResponseFor = (url, method) => {
+    return responses.find(response => response.url === url && (response.method === method || response.method === undefined && method === 'GET'));
+};
+
 const handleFetch = e => {
     const {method, url} = e.request;
     const response = getResponseFor(url, method);
@@ -40,7 +46,7 @@ const handleFetch = e => {
     if(response) {
         console.log(`[sw-proxy] proxying request ${method}: ${url}`);
 
-        let {headers, status, statusText, delay} = response;
+        const {headers, status, statusText, delay} = response;
 
         const init = {headers, status, statusText};
         const proxyResponse = response.file ? fetch(`${self.origin}/${response.file}`) :
@@ -52,11 +58,6 @@ const handleFetch = e => {
     }
 };
 
-const delayResponse = (time, response) => new Promise(resolve => setTimeout(() => resolve(response), time));
-
-const getResponseFor = (url, method) => {
-    return responses.find(response => response.url === url && (response.method === method || response.method === undefined && method === 'GET'));
-};
 
 self.addEventListener('install', handleInstall);
 self.addEventListener('activate', handleActivate);
