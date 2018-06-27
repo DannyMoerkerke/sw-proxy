@@ -63,6 +63,15 @@ The demo can now be viewed on http://localhost:8080/demo.
 Click the buttons on the demo page to generate the requests and
 view the results in the dev tools of your browser of choice.
 
+## Browser support
+Tested in:
+- Chrome 67
+- Safari 11.1
+- Firefox 60
+- Edge 17
+
+sw-proxy should run in all browsers that support ES6 modules and Service Worker.
+
 ## Inspecting and debugging the service worker
 For a great explanation of how to inspect and debug service workers
 in Chrome, Firefox, Safari and Edge check [Tools for PWA developers](https://developers.google.com/web/ilt/pwa/tools-for-pwa-developers#interact_with_service_workers_in_the_browser).

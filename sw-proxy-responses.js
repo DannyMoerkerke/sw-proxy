@@ -17,7 +17,7 @@ export default [
         headers: {
             'Content-Type': 'application/pdf'
         },
-        file: 'tickets.pdf'
+        file: 'demo/example.pdf'
     },
     {
         url: 'http://api.example.com/post',
