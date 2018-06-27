@@ -63,6 +63,9 @@ The demo can now be viewed on http://localhost:8080/demo.
 Click the buttons on the demo page to generate the requests and
 view the results in the dev tools of your browser of choice.
 
+To view the console logs in Safari you need to open a separate Web Inspector
+window via Develop > Service Workers > localhost.
+
 ## Browser support
 Tested in:
 - Chrome 67
