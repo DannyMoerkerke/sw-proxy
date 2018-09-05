@@ -1,4 +1,5 @@
-let responses = [];
+self.importScripts('./sw-proxy-responses.js');
+// let responses = [];
 
 const handleInstall = () => {
     console.log('[sw-proxy] service worker installed');
@@ -6,33 +7,19 @@ const handleInstall = () => {
 };
 
 const handleActivate = () => {
-    console.log('[sw-proxy] service worker activated', responses.length);
+    console.log('[sw-proxy] service worker activated');
     self.clients.claim()
-    .then(() => {
-        if(!responses.length) {
-            console.log('requesting responses');
-            self.clients.matchAll()
-            .then(clients => {
-                console.log('send message to client', clients);
-                clients.forEach(client => client.postMessage('request for responses'));
-            })
-            .catch(err => {
-                console.log('clients error', err);
-            });
-        }
-    })
     .catch(err => {
         console.log('claim error', err);
     });
 };
 
-const handleMessage = e => {
-    if(e.data.responses) {
-        console.log('receiving responses');
-        responses = e.data.responses;
-    }
-};
-
+/**
+ *
+ * @param {Number} time delay in ms
+ * @param {Promise<Response>} response response
+ * @returns {Promise<Response>}
+ */
 const delayResponse = (time, response) => new Promise(resolve => setTimeout(() => resolve(response), time));
 
 const getResponseFor = (url, method) => {
@@ -53,7 +40,7 @@ const handleFetch = e => {
             Promise.resolve(new Response(JSON.stringify(response.body), init));
 
         e.waitUntil(
-            e.respondWith(delay ? delayResponse(delay, proxyResponse) : proxyResponse)
+            Promise.resolve(e.respondWith(delay ? delayResponse(delay, proxyResponse) : proxyResponse))
         );
     }
 };
@@ -61,6 +48,5 @@ const handleFetch = e => {
 
 self.addEventListener('install', handleInstall);
 self.addEventListener('activate', handleActivate);
-self.addEventListener('message', handleMessage);
 self.addEventListener('fetch', handleFetch);
 

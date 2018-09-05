@@ -1,4 +1,4 @@
-export default [
+const responses = [
     {
         url: 'http://api.example.com/json',
         headers: {
