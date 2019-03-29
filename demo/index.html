@@ -1,52 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>sw-proxy</title>
-        <style>
-            body {
-                font-family: Verdana;
-            }
+<head>
+    <meta charset="UTF-8">
+    <title>sw-proxy</title>
+    <style>
+        body {
+            font-family: Verdana;
+        }
 
-            button {
-                cursor: pointer;
-                padding: 5px 15px;
-                margin-right: 10px;
-            }
+        button {
+            cursor: pointer;
+            padding: 5px 15px;
+            margin-right: 10px;
+        }
 
-            .buttons {
-                margin-top: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>sw-proxy demo</h1>
-        <p>
-            Click the buttons below to generate the corresponding type of response from sw-proxy. Check the console for
-            output.
-        </p>
-        <div class="buttons">
-            <button type="button" id="json">JSON</button>
-            <button type="button" id="text">Text</button>
-            <button type="button" id="pdf">PDF</button>
-            <button type="button" id="post">POST</button>
-            <button type="button" id="404">404</button>
-        </div>
-    </body>
+        .buttons {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<h1>sw-proxy demo</h1>
+<p>
+    Click the buttons below to generate the corresponding type of response from sw-proxy. Check the console for
+    output.
+</p>
+<div class="buttons">
+    <button type="button" id="json">JSON</button>
+    <button type="button" id="text">Text</button>
+    <button type="button" id="pdf">PDF</button>
+    <button type="button" id="post">POST</button>
+    <button type="button" id="404">404</button>
+    <button type="button" id="302">302</button>
+</div>
+</body>
 
-    <script type="module" src="/index.js"></script>
-    <script>
+<script src="/index.js"></script>
+<script>
 
-        const responses = {
-            'json': ['http://api.example.com/json'],
-            'text': ['http://api.example.com/text'],
-            'pdf': ['http://api.example.com/pdf'],
-            'post': ['http://api.example.com/post', {method: 'POST'}],
-            '404': ['http://api.example.com/notfound']
-        };
+  const responses = {
+    'json': ['http://api.example.com/json'],
+    'text': ['http://api.example.com/text'],
+    'pdf': ['http://api.example.com/pdf'],
+    'post': ['http://api.example.com/post', {method: 'POST'}],
+    '404': ['http://api.example.com/notfound'],
+    '302': ['http://api.example.com/redirect']
+  };
 
-        document.querySelectorAll('button').forEach(button => {
-            button.addEventListener('click', () => fetch(responses[button.id][0], responses[button.id][1]));
-        });
-    </script>
+  document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', () => fetch(...responses[button.id]));
+  });
+</script>
 </html>

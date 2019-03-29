@@ -22,7 +22,7 @@
         "no-console": 0,
         "indent": [
             2,
-            4,
+            2,
             {"SwitchCase": 1, "MemberExpression": 0}
         ],
         "linebreak-style": [

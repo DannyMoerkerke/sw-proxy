@@ -4,7 +4,8 @@
   "description": "Service Worker based proxy server",
   "main": "index.js",
   "scripts": {
-    "start": "ws -p 8080"
+    "start": "ws -p 8080",
+    "lint": "eslint ."
   },
   "author": "Danny Moerkerke <danny@dannymoerkerke.nl>",
   "license": "ISC",

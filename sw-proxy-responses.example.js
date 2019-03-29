@@ -1,4 +1,5 @@
-export default [
+/* eslint-disable no-unused-vars */
+const responses = [
     {
         url: 'http://api.example.com/json',
         headers: {

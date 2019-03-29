@@ -11,19 +11,17 @@ serving a custom response.
 Run `npm install sw-proxy --save-dev`
 
 ## Usage
-Simply add sw-proxy to your web app by including it as and ES6 module
-using a script tag:
+Simply add sw-proxy to your web app using a script tag:
 
-`<script type="module" src="node_modules/sw-proxy/index.js></script>`
+`<script src="node_modules/sw-proxy/index.js></script>`
 
-Then list the requests you want to intercept in an array of objects,
-export it as an ES6 module and save it to `sw-proxy-responses.js` in the
+Then list the requests you want to intercept in an array of objects and save it to `sw-proxy-responses.js` in the
 root folder of your application.
 
 For example:
 
 ```javascript
-export default [
+const responses = [
     {
          url: 'http://api.example.com/json',
          headers: {
@@ -68,12 +66,12 @@ window via Develop > Service Workers > localhost.
 
 ## Browser support
 Tested in:
-- Chrome 67
-- Safari 11.1
-- Firefox 60
-- Edge 17
+- Chrome 67+
+- Safari 11.1+
+- Firefox 60+
+- Edge 17+
 
-sw-proxy should run in all browsers that support ES6 modules and Service Worker.
+sw-proxy should run in all browsers that support Service Worker.
 
 ## Inspecting and debugging the service worker
 For a great explanation of how to inspect and debug service workers
