@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 const responses = [
   {
-    url: 'http://api.example.com/json',
-    method: 'GET',
+    reqUrl: 'http://api.example.com/json',
+    reqMethod: 'GET',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -11,21 +11,21 @@ const responses = [
     }
   },
   {
-    url: 'http://api.example.com/text',
-    method: 'GET',
+    reqUrl: 'http://api.example.com/text',
+    reqMethod: 'GET',
     body: 'plain text body'
   },
   {
-    url: 'http://api.example.com/pdf',
-    method: 'GET',
+    reqUrl: 'http://api.example.com/pdf',
+    reqMethod: 'GET',
     headers: {
       'Content-Type': 'application/pdf'
     },
     file: 'demo/example.pdf'
   },
   {
-    url: 'http://api.example.com/post',
-    method: 'POST',
+    reqUrl: 'http://api.example.com/post',
+    reqMethod: 'POST',
     status: 201,
     statusText: 'Created',
     headers: {
@@ -36,8 +36,8 @@ const responses = [
     }
   },
   {
-    url: 'http://api.example.com/notfound',
-    method: 'GET',
+    reqUrl: 'http://api.example.com/notfound',
+    reqMethod: 'GET',
     status: 404,
     statusText: 'Not found',
     headers: {
@@ -48,9 +48,15 @@ const responses = [
     }
   },
   {
-    url: 'http://api.example.com/redirect',
-    method: 'GET',
+    reqUrl: 'http://localhost:8080/redirect',
+    reqMethod: 'GET',
     status: 302,
-    redirectUrl: 'http://api.example.com/302'
+    redirectUrl: 'https://api.dannymoerkerke.com/v1/blogpostings'
   },
+  {
+    reqUrl: 'http://localhost/*',
+    reqMethod: 'GET',
+    status: 302,
+    redirectUrl: 'http://localhost:8080/$1'
+  }
 ];
