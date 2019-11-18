@@ -1,8 +1,11 @@
 {
   "name": "sw-proxy",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Service Worker based proxy server",
-  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "sw-proxy.js",
   "scripts": {
     "start": "ws -p 8080",
     "lint": "eslint ."
@@ -10,6 +13,6 @@
   "author": "Danny Moerkerke <danny@dannymoerkerke.nl>",
   "license": "ISC",
   "devDependencies": {
-    "local-web-server": "^2.5.2"
+    "local-web-server": "^3.0.7"
   }
 }

@@ -1,26 +1,18 @@
 self.importScripts('./sw-proxy-responses.js');
 
 const handleInstall = () => {
-  console.log('[sw-proxy] service worker installed');
+  console.log('[SW-PROXY] service worker installed');
   self.skipWaiting();
 };
 
 const handleActivate = () => {
-  console.log('[sw-proxy] service worker activated');
-  self.clients.claim()
-  .catch(err => {
-    console.log('claim error', err);
-  });
+  console.log('[SW-PROXY] service worker activated');
+
+  return self.clients.claim();
 };
 
-/**
- *
- * @param {Number} time delay in ms
- * @param {Promise<Response>} response response
- * @returns {Promise<Response>}
- */
 const delayResponse = (time, response) => new Promise(resolve => setTimeout(() => resolve(response), time));
-const compose = (...funcs) => x => funcs.reduce((res, f) => res || f(x), false);
+const compose = (...fns) => x => fns.reduce((res, f) => res || f(x), false);
 
 const getResponseFor = (url, method) => {
   const exactUrlMatch = ({reqUrl, reqMethod}) => url === reqUrl && method === reqMethod;
@@ -32,20 +24,23 @@ const getResponseFor = (url, method) => {
   /* eslint-enable no-undef */
 };
 
-const handleFetch = e => {
-  const {method: reqMethod, url: reqUrl} = e.request;
+const handleFetch = async (e) => {
+  const {request} = e;
+  const {method: reqMethod, url: reqUrl} = request;
   const response = getResponseFor(reqUrl, reqMethod);
 
   if(response) {
-    console.log(`[sw-proxy] proxying request ${reqMethod}: ${reqUrl}`);
-
-    const {headers, status, statusText, delay} = response;
+    const {headers, status, statusText, delay, resMethod} = response;
     const redirectUrl = response.reqUrl.includes('*') ? reqUrl.replace(new RegExp(response.reqUrl.replace('*', '(.+)')), response.redirectUrl) : response.redirectUrl;
-    console.log('redirecting to', redirectUrl);
-    const init = {headers, status, statusText, url: reqUrl};
+    const init = {headers, status, statusText, url: reqUrl, method: resMethod ? resMethod : reqMethod};
+
     const proxyResponse = response.file ? fetch(`${self.origin}/${response.file}`) :
-      redirectUrl ? fetch(redirectUrl) :
-      Promise.resolve(new Response(JSON.stringify(response.body), init));
+      redirectUrl ? fetch(redirectUrl, init) :
+        Promise.resolve(new Response(JSON.stringify(response.body), init));
+
+
+    const msg = `[SW-PROXY] proxying request ${reqMethod}: ${reqUrl}`;
+    console.log(`${msg} ${redirectUrl ? `-> ${redirectUrl}` : ``} ${response.file ? `-> serving: ${response.file}` : ``}`);
 
     e.waitUntil(
       Promise.resolve(e.respondWith(delay ? delayResponse(delay, proxyResponse) : proxyResponse))

@@ -7,6 +7,10 @@ sits between web applications and the network (when available).
 Service workers are able to intercept requests and take an action, like
 serving a custom response.
 
+This enables you to use sw-proxy as a proxy server inside your browser or as a mock server to test a REST API without 
+having to run a local backend.
+
+
 ## Installation
 Run `npm install sw-proxy --save-dev`
 
@@ -41,7 +45,7 @@ const responses = [
 
 
 - `url`: String (required), fully qualified URL of the request to be proxied
-- `method`: String (optional), HTTP method, defaults to GET
+- `method`: String (required), HTTP method (GET, POST, PUT or DELETE)
 - `headers`: Object (optional), key/value pairs of HTTP headers
 - `body`: Object/String (optional): response body
 - `file`: String (optional), path to file to be served, relative to root folder of the
