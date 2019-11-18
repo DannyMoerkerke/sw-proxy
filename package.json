@@ -1,6 +1,6 @@
 {
   "name": "@dannymoerkerke/sw-proxy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Service Worker based proxy server",
   "publishConfig": {
     "access": "public"
@@ -11,6 +11,10 @@
     "lint": "eslint ."
   },
   "author": "Danny Moerkerke <danny@dannymoerkerke.nl>",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:DannyMoerkerke/sw-proxy.git"
+  },
   "license": "ISC",
   "devDependencies": {
     "local-web-server": "^3.0.7"
