@@ -12,7 +12,7 @@ having to run a local backend.
 
 
 ## Installation
-Run `npm install sw-proxy --save-dev`
+Run `npm install @dannymoerkerke/sw-proxy --save-dev`
 
 ## Usage
 Simply add sw-proxy to your web app using a script tag:
