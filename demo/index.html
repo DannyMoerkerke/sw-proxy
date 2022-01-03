@@ -32,6 +32,9 @@
     <button type="button" id="post">POST</button>
     <button type="button" id="404">404</button>
     <button type="button" id="302">302</button>
+    <button type="button" id="parameter_1">Parameterized: id=1</button>
+    <button type="button" id="parameter_2">Parameterized: id=2</button>
+    <button type="button" id="parameter_3">Parameterized: id=3</button>
 </div>
 </body>
 
@@ -44,7 +47,10 @@
     'pdf': ['https://api.example.com/pdf'],
     'post': ['https://api.example.com/post', {method: 'POST'}],
     '404': ['https://api.example.com/notfound'],
-    '302': ['https://localhost/demo']
+    '302': ['https://localhost/demo'],
+    'parameter_1': ['https://api.example.com/users/1'],
+    'parameter_2': ['https://api.example.com/users/2'],
+    'parameter_3': ['https://api.example.com/users/3']
   };
 
   document.querySelectorAll('button').forEach(button => {

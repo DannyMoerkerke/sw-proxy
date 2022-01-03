@@ -1,25 +1,25 @@
-# sw-proxy
+# swopr
 
-sw-proxy is a really tiny proxy server which utilizes a service worker.
+swopr is a really tiny proxy server which utilizes a service worker.
 A [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
 sits between web applications and the network (when available).
 
 Service workers are able to intercept requests and take an action, like
 serving a custom response.
 
-This enables you to use sw-proxy as a proxy server inside your browser or as a mock server to test a REST API without 
+This enables you to use swopr as a proxy server inside your browser or as a mock server to test a REST API without 
 having to run a local backend.
 
 
 ## Installation
-Run `npm install @dannymoerkerke/sw-proxy --save-dev`
+Run `npm install @dannymoerkerke/swopr --save-dev`
 
 ## Usage
-Simply add sw-proxy to your web app using a script tag:
+Simply add swopr to your web app using a script tag:
 
-`<script src="node_modules/sw-proxy/index.js></script>`
+`<script src="node_modules/@dannymoerkerke/swopr/index.js></script>`
 
-Then list the requests you want to intercept in an array of objects and save it to `sw-proxy-responses.js` in the
+Then list the requests you want to intercept in an array of objects and save it to `swopr-responses.js` in the
 root folder of your application.
 
 For example:
@@ -47,7 +47,8 @@ const responses = [
 - `url`: String (required), fully qualified URL of the request to be proxied
 - `method`: String (required), HTTP method (GET, POST, PUT or DELETE)
 - `headers`: Object (optional), key/value pairs of HTTP headers
-- `body`: Object/String (optional): response body
+- `body`: Object/String/Function (optional): response body, when a function is given it will receive as argument an 
+object containing any request parameters
 - `file`: String (optional), path to file to be served, relative to root folder of the
 application. Must be accessible to the web server and will be ignored if `body` is present
 - `status`: Number (optional), HTTP status code
@@ -56,7 +57,7 @@ application. Must be accessible to the web server and will be ignored if `body` 
 ## Running the demo
 Run `npm install`.
 
-Rename `sw-proxy-responses.example.js` to `sw-proxy-responses.js`.
+Rename `swopr-responses.example.js` to `swopr-responses.js`.
 
 Run `npm start`.
 
@@ -75,7 +76,7 @@ Tested in:
 - Firefox 60+
 - Edge 17+
 
-sw-proxy should run in all browsers that support Service Worker.
+swopr should run in all browsers that support Service Worker.
 
 ## Inspecting and debugging the service worker
 For a great explanation of how to inspect and debug service workers

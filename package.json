@@ -5,7 +5,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "sw-proxy.js",
+  "main": "swopr.js",
   "scripts": {
     "start": "ws -p 8080",
     "lint": "eslint ."
@@ -17,6 +17,6 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "local-web-server": "^3.0.7"
+    "local-web-server": "5.1.1"
   }
 }
