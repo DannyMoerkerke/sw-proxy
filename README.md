@@ -1,13 +1,12 @@
 # swopr
 
-swopr is a really tiny proxy server which utilizes a service worker.
+`swopr` is a really tiny proxy server which utilizes a service worker.
 A [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
 sits between web applications and the network (when available).
 
-Service workers are able to intercept requests and take an action, like
-serving a custom response.
+Service workers are able to intercept requests and take an action, like serving a custom response.
 
-This enables you to use swopr as a proxy server inside your browser or as a mock server to test a REST API without 
+This enables you to use `swopr` as a proxy server inside your browser or as a mock server to test a REST API without 
 having to run a local backend.
 
 
@@ -15,10 +14,10 @@ having to run a local backend.
 Run `npm install swopr --save-dev`
 
 ## Usage
-The Service Worker file needed by swopr needs to be in the root folder of your application, so you need to copy 
+The Service Worker file needed by `swopr` needs to be in the root folder of your application, so you need to copy 
 `node_modules/swopr/swopr.js` to the root folder.
 
-Then simply add swopr to your web app using a script tag:
+Then simply add `swopr` to your web app using a script tag:
 
 `<script src="node_modules/swopr/index.js></script>`
 
@@ -58,9 +57,11 @@ application. Must be accessible to the web server and will be ignored if `body` 
 
 The file `swopr-responses.example.js` contains an example for each option.
 
-swopr will add a 'beforeunload' event listener to the `window` to re-register the Service Worker when the page is reloaded.
-This ensures that swopr will always use the correct responses whenever these are changed, without having to change the 
-Service Worker file itself.
+Whenever a change is made to the responses, the page must be reloaded.
+
+Since this will not reload the Service Worker, `swopr` will add a 'beforeunload' event listener to the `window` to 
+re-register the Service Worker when the page is reloaded. This ensures that `swopr` will always use the correct responses 
+whenever these are changed, without having to change the Service Worker file itself.
 
 ## Running the demo
 Run `npm install`.
@@ -84,7 +85,7 @@ Tested in:
 - Firefox 60+
 - Edge 17+
 
-swopr should run in all browsers that support Service Worker.
+`swopr` should run in all browsers that support Service Worker.
 
 ## Inspecting and debugging the service worker
 For a great explanation of how to inspect and debug service workers
