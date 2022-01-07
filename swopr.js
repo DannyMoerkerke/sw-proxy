@@ -1,12 +1,13 @@
-self.importScripts('./sw-proxy-responses.js');
+self.importScripts('./swopr-responses.js');
 
 const handleInstall = () => {
-  console.log('[SW-PROXY] service worker installed');
+  console.log('[SWOPR] service worker installed');
+
   self.skipWaiting();
 };
 
 const handleActivate = () => {
-  console.log('[SW-PROXY] service worker activated');
+  console.log('[SWOPR] service worker activated');
 
   return self.clients.claim();
 };
@@ -15,8 +16,6 @@ const delayResponse = (time, response) => new Promise(resolve => setTimeout(() =
 const compose = (...fns) => x => fns.reduce((res, f) => res || f(x), false);
 
 const getResponseFor = ({url: reqUrl, method: reqMethod}) => {
-  // console.log('reqUrl', reqUrl);
-
   const exactUrlMatch = ({url, method}) => url === reqUrl && method === reqMethod;
   const patternUrlMatch = ({url, method}) => {
     return url.includes('*') && new RegExp(url.replace('*', '(.+)')).test(reqUrl) && method === reqMethod;
@@ -60,7 +59,7 @@ const handleFetch = async (e) => {
         Promise.resolve(new Response(JSON.stringify(getResponseBody(response, params)), init));
 
 
-    const msg = `[SW-PROXY] proxying request ${reqMethod}: ${reqUrl}`;
+    const msg = `[SWOPR] proxying request ${reqMethod}: ${reqUrl}`;
     console.log(`${msg} ${redirectUrl ? `-> ${redirectUrl}` : ``} ${response.file ? `-> serving: ${response.file}` : ``}`);
 
     e.waitUntil(e.respondWith(delay ? delayResponse(delay, proxyResponse) : proxyResponse));

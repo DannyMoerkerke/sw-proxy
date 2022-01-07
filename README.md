@@ -12,12 +12,15 @@ having to run a local backend.
 
 
 ## Installation
-Run `npm install @dannymoerkerke/swopr --save-dev`
+Run `npm install swopr --save-dev`
 
 ## Usage
-Simply add swopr to your web app using a script tag:
+The Service Worker file needed by swopr needs to be in the root folder of your application, so you need to copy 
+`node_modules/swopr/swopr.js` to the root folder.
 
-`<script src="node_modules/@dannymoerkerke/swopr/index.js></script>`
+Then simply add swopr to your web app using a script tag:
+
+`<script src="node_modules/swopr/index.js></script>`
 
 Then list the requests you want to intercept in an array of objects and save it to `swopr-responses.js` in the
 root folder of your application.
@@ -27,22 +30,21 @@ For example:
 ```javascript
 const responses = [
     {
-         url: 'http://api.example.com/json',
-         headers: {
-             'Content-Type': 'application/json'
-         },
-         body: {
-             message: 'a json response'
-         },
-         status: 200,
-         statusText: 'OK'
+      url: 'http://api.example.com/json',
+      headers: {
+       'Content-Type': 'application/json'
+      },
+      body: {
+       message: 'a json response'
+      },
+      status: 200,
+      statusText: 'OK'
     },
     {
-        ...
+      ...
     }
 ]
 ```
-
 
 - `url`: String (required), fully qualified URL of the request to be proxied
 - `method`: String (required), HTTP method (GET, POST, PUT or DELETE)
@@ -53,6 +55,12 @@ object containing any request parameters
 application. Must be accessible to the web server and will be ignored if `body` is present
 - `status`: Number (optional), HTTP status code
 - `statusText`: String (optional), HTTP status text
+
+The file `swopr-responses.example.js` contains an example for each option.
+
+swopr will add a 'beforeunload' event listener to the `window` to re-register the Service Worker when the page is reloaded.
+This ensures that swopr will always use the correct responses whenever these are changed, without having to change the 
+Service Worker file itself.
 
 ## Running the demo
 Run `npm install`.
