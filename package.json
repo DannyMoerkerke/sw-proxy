@@ -2,6 +2,13 @@
   "name": "swopr",
   "version": "0.0.1",
   "description": "Service Worker based proxy server",
+  "author": "Danny Moerkerke <danny@dannymoerkerke.nl>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:DannyMoerkerke/swopr.git"
+  },
+  "homepage": "https://github.com/DannyMoerkerke/swopr",
   "publishConfig": {
     "access": "public"
   },
@@ -10,12 +17,6 @@
     "start": "ws -p 8080",
     "lint": "eslint ."
   },
-  "author": "Danny Moerkerke <danny@dannymoerkerke.nl>",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:DannyMoerkerke/sw-proxy.git"
-  },
-  "license": "ISC",
   "devDependencies": {
     "local-web-server": "5.1.1"
   }
