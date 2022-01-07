@@ -1,6 +1,6 @@
 {
-  "name": "@dannymoerkerke/sw-proxy",
-  "version": "0.0.2",
+  "name": "swopr",
+  "version": "0.0.1",
   "description": "Service Worker based proxy server",
   "publishConfig": {
     "access": "public"
